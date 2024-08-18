@@ -1,0 +1,22 @@
+name: Meu dockerfile pipeline
+
+on:
+  push:
+    branches:
+    - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Code checkout
+      uses: actions/checkout@v4
+    - name: Use node
+      uses: actions/setup-node@v4
+      with:
+        node-version: 21.0.x
+    - uses: Dockerhub login
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_PASSWORD }}
